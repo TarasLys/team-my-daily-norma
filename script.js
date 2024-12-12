@@ -20,9 +20,11 @@ document.getElementById("activity-time").addEventListener("blur", calculateWater
 
 document.getElementById("weight").addEventListener("focus", clearDefault);
 document.getElementById("activity-time").addEventListener("focus", clearDefault);
+document.getElementById("water-intake").addEventListener("focus", clearDefault);
 
 document.getElementById("weight").addEventListener("blur", restoreDefault);
 document.getElementById("activity-time").addEventListener("blur", restoreDefault);
+document.getElementById("water-intake").addEventListener("blur", restoreDefault);
 
 function calculateWaterIntake() {
     const gender = document.querySelector('input[name="gender"]:checked').value;
@@ -36,7 +38,11 @@ function calculateWaterIntake() {
         V = (weight * 0.04) + (activityTime * 0.6);
     }
 
-    document.querySelector(".required-water").textContent = V.toFixed(2) + " L";
+    if (isNaN(V)) {
+        V = 0;
+    }
+
+    document.querySelector(".required-water").textContent = V === 0 ? "0 L" : V.toFixed(2) + " L";
 }
 
 function clearDefault(event) {
@@ -50,5 +56,4 @@ function restoreDefault(event) {
         event.target.value = "0";
     }
 }
-
 
