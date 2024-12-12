@@ -18,6 +18,12 @@ document.querySelectorAll('input[name="gender"]').forEach((elem) => {
 document.getElementById("weight").addEventListener("blur", calculateWaterIntake);
 document.getElementById("activity-time").addEventListener("blur", calculateWaterIntake);
 
+document.getElementById("weight").addEventListener("focus", clearDefault);
+document.getElementById("activity-time").addEventListener("focus", clearDefault);
+
+document.getElementById("weight").addEventListener("blur", restoreDefault);
+document.getElementById("activity-time").addEventListener("blur", restoreDefault);
+
 function calculateWaterIntake() {
     const gender = document.querySelector('input[name="gender"]:checked').value;
     const weight = parseFloat(document.getElementById("weight").value);
@@ -32,3 +38,17 @@ function calculateWaterIntake() {
 
     document.querySelector(".required-water").textContent = V.toFixed(2) + " L";
 }
+
+function clearDefault(event) {
+    if (event.target.value === "0") {
+        event.target.value = "";
+    }
+}
+
+function restoreDefault(event) {
+    if (event.target.value === "") {
+        event.target.value = "0";
+    }
+}
+
+
